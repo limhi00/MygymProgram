@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout/_layout">
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -26,6 +26,18 @@
 
 </head>
 <body>
+	<section class="breadcrumbs">
+			<div class="container">
+				<div class="d-flex justify-content-between align-items-center">
+					<h2>에약 취소 확인</h2>
+					<ol>
+						<li><a href="/classCalendar">수업 예약</a></li>
+						<li>에약 취소 확인</li>
+					</ol>
+				</div>
+			</div>
+		</section>
+		<!-- End Breadcrumbs -->
 
 	<section class="myContent">
 		<div class="container reservation">

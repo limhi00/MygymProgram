@@ -42,10 +42,10 @@ public class ClassController {
 			System.out.println("resList" + re);
 			ReservationListDto vo = new ReservationListDto();
 			vo.setTitle("수업 확인");
-			vo.setStart(re.getClassDate());
+			vo.setStart(re.getClassDate()+"T"+re.getClassTime()+":00:00");
+			vo.setEnd(re.getClassDate()+"T"+re.getClassTime()+":50:00");
 			vo.setUrl("/classChecking?rseq="+re.getRseq());
-			vo.setAllDay(true);
-			vo.setColor("#eee");
+			vo.setColor("#2C3E50");
 			vo.setTextColor("#000");
 			
 			eventMap.put("event"+count, vo);
@@ -67,8 +67,9 @@ public class ClassController {
 	}
 	
 	@GetMapping("/classReservation")
-	public String classReservationView(Model model, @RequestParam String classDate) {
+	public String classReservationView(Principal principal, Model model, @RequestParam String classDate) {
 		
+		model.addAttribute("name", principal.getName());
 		model.addAttribute("classDate", classDate);
 		
 		return "class/classReservation";

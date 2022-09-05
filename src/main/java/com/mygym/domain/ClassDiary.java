@@ -1,7 +1,9 @@
 package com.mygym.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -13,11 +15,12 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "reservation")
 @Entity
 public class ClassDiary {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "CD_ID")
 	private Long cdseq;
 	
 	@ManyToOne
@@ -26,7 +29,7 @@ public class ClassDiary {
 	
 	@OneToOne
 	@JoinColumn(name="RES_ID", nullable=false, updatable=false)
-	private Reservation res;
+	private Reservation reservation;
 	
 	private String content;
 }

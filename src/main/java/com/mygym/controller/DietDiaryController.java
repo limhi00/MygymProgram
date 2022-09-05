@@ -45,7 +45,7 @@ public class DietDiaryController {
 			vo.setStart(dd.getD_indate());
 			vo.setUrl("/getDiary?dseq="+dd.getDseq());
 			vo.setAllDay(true);
-			vo.setColor("#222");
+			vo.setColor("#2C3E50");
 			vo.setTextColor("#fff");
 			
 			eventMap.put("event"+count, vo);

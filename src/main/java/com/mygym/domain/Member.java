@@ -22,7 +22,7 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString(exclude="dietDiaryList")
+@ToString(exclude="resList")
 @Entity
 public class Member {
 	

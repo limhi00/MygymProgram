@@ -10,9 +10,8 @@ import lombok.ToString;
 public class ReservationListDto {
 	private String title;
 	private String start;
+	private String end;
 	private String url;
 	private String color;
 	private String textColor;
-	private String rendering;
-	private Boolean allDay;
 }
