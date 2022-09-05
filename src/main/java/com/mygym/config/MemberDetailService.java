@@ -1,5 +1,6 @@
 package com.mygym.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,7 +15,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class MemberDetailService implements UserDetailsService {
 
-	private final MemberRepository memberRepo; 
+	@Autowired
+	private  MemberRepository memberRepo; 
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
