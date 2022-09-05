@@ -35,6 +35,8 @@ public class Reservation {
 	
 	private String classTime;
 	
+	private String cTrainer;
+	
 	@OneToOne
 	@JoinColumn(name="CD_ID", updatable=false)
 	private ClassDiary classDiary;
