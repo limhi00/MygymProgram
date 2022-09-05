@@ -10,10 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.mygym.domain.ClassDiary;
+import com.mygym.domain.Member;
 import com.mygym.domain.Reservation;
 import com.mygym.domain.ReservationListDto;
 import com.mygym.service.ReservationService;
@@ -57,17 +60,18 @@ public class ClassController {
 	@GetMapping("/classChecking")
 	public String classChecking(@RequestParam("rseq") Long rseq, Model model, Reservation res) {
 		
-		System.out.println("rseq="+rseq);
+//		System.out.println("rseq="+rseq);
 		res = resService.getReservation(rseq);
-		System.out.println("reservation="+res);
+//		System.out.println("reservation="+res);
 		model.addAttribute("reservation", res);
 		
 		return "class/classChecking";
 	}
 	
 	@GetMapping("/classReservation")
-	public String classReservationView(Principal principal, Model model, @RequestParam String classDate) {
+	public String classReservationView(Principal principal, Model model, @RequestParam String classDate, String role) {
 		
+		model.addAttribute("cTrainerList", resService.getCTrainerList(role));
 		model.addAttribute("name", principal.getName());
 		model.addAttribute("classDate", classDate);
 		
@@ -83,20 +87,45 @@ public class ClassController {
 		return "redirect:/classChecking";
 	}
 	
-	@GetMapping("/classCancle")
-	public String classCancleView(Model model, Reservation res) {
+	@GetMapping("/classCancelView")
+	public String classCancleView(@RequestParam("rseq") Long rseq, Model model, Reservation res) {
 		
-		res = resService.getReservation(res.getRseq());
+		res = resService.getReservation(rseq);
 		model.addAttribute("reservation", res);
 		
-		return "class/classCancle";
+		return "class/classCancel";
 	}
 	
-	@PostMapping("/classCancle")
-	public String classCancle(Reservation res) {
+	@RequestMapping("/classCancel")
+	public void classCancle(Reservation res) {
 		
 		resService.deleteReservation(res);
+	}
+	
+	@GetMapping("/getClassDiary")
+	public String getClassDiary(Long rseq, ClassDiary cDiary, Model model) {
 		
-		return "redirect:/classCalendarView";
+		cDiary = resService.getClassDiary(rseq);
+		model.addAttribute("cDiary", cDiary);
+		
+		return "class/getClassDiary";
+	}
+	
+	@GetMapping("/insertClassDiary")
+	public String insertClassDiaryView(@RequestParam Long rseq, ClassDiary cDiary, Model model) {
+		
+		cDiary = resService.getClassDiary(rseq);
+		model.addAttribute("cDiary", cDiary);
+		
+		return "class/insertClassDiary";
+	}
+	
+	@PostMapping("/insertClassDiary")
+	public String insertClassDiary(ClassDiary cDiary, Model model) {
+		
+		Long rseq = resService.insertClassDiary(cDiary);
+		model.addAttribute("rseq", rseq);
+		
+		return "redirect:/getClassDiary";
 	}
 }

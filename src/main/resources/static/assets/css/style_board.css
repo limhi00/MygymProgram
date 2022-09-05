@@ -405,6 +405,7 @@
 
 .board_write .upload{
 	margin: 10px;
+	font-size: 12px;
 }
 @media (max-width: 1000px) {
     .board_wrap {

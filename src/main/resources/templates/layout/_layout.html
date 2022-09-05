@@ -39,8 +39,6 @@
 		<nav id="navbar" class="navbar">
 			<ul>
 				<li>
-					<!-- [ROLE_MEMBER]를 [회원]으로 출력되게 하고 싶음. 화면을 줄이면 박스가 어긋나는 현상 있음.
-					<span sec:authorize="isAuthenticated()" th:if="${principal.role} == ${'ROLE_MEMBER'}" th:text="${'회원'}"></span> -->
 					<span sec:authorize="isAuthenticated()" class="nav-link scrollto active"> 
 						<span th:text="${#authentication.name}"></span>
 						[<span sec:authentication="principal.role"></span>]

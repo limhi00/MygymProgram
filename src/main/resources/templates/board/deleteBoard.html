@@ -5,6 +5,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Fitness Program - 게시글 삭제</title>
 <link href="assets/css/style_board.css" rel="stylesheet">
+	<script type="text/javascript">
+		function deleteCheckPopup(){
+			var seq = document.getElementById("bseq").value;
+			var bPwd = document.getElementById("boardPwd").value;
+			var bPwd2 = document.getElementById("boardPwdPut").value;
+			
+			if(bPwd == bPwd2) {
+				var returnValue = confirm('삭제하시겠습니까?');
+				if(returnValue) {
+					alert('삭제되었습니다.');
+					location.href="/deleteBoardCheck?bseq="+seq;
+					
+					window.opener.name="parentPage";
+					document.deleteBoard.target="parentPage";
+					document.deleteBoard.action="/allBoardList";
+					document.deleteBoard.submit();
+					
+					self.close();
+				} else {
+					alert('삭제가 취소되었습니다.');
+				}
+			} else {
+				alert("글 비밀번호가 일치하지 않습니다.");
+				return false;
+			}
+		}
+		
+		function cancelDelete() {
+			window.close();
+		}
+	</script>
 </head>
 <body>
 	<div class="board_wrap">
@@ -39,37 +70,6 @@
 					<a th:href="@{/deleteResult}" onclick="deleteCheckPopup()" class="btItem">삭제</a>
 					<a href="" onclick="cancelDelete()" class="btItem">취소</a>
 				</div>
-				
-				<script type="text/javascript">
-					function deleteCheckPopup(){
-						var seq = document.getElementById("bseq").value;
-						var bPwd = document.getElementById("boardPwd").value;
-						var bPwd2 = document.getElementById("boardPwdPut").value;
-						
-						if(bPwd == bPwd2) {
-							var returnValue = confirm('삭제하시겠습니까?');
-							if(returnValue) {
-								alert('삭제되었습니다.');
-								location.href="/deleteBoardCheck?bseq="+seq;
-								
-								window.opener.name="parentPage";
-								document.deleteBoard.target="parentPage";
-								document.deleteBoard.action="/allBoardList";
-								document.deleteBoard.submit();
-								
-								self.close();
-							} else {
-								alert('삭제가 취소되었습니다.');
-							}
-						} else {
-							alert("글 비밀번호가 일치하지 않습니다.");
-						}
-					}
-					
-					function cancelDelete() {
-						window.close();
-					}
-				</script>
 			</form>
 		</div>
 	</div>

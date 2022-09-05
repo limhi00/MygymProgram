@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="layout/_layout">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -23,8 +21,9 @@
 
 <!-- Template Main CSS File -->
 <link href="assets/css/style_board.css" rel="stylesheet">
+
 <script>
-	function deleteClassPopup() {
+	function classCancelCheck() {
 		var seq = document.getElementById("rseq").value;
 		var mPwd = document.getElementById("mPwd").value;
 		var mPwd2 = document.getElementById("mPwdPut").value;
@@ -33,61 +32,65 @@
 			var returnValue = confirm('예약을 취소하시겠습니까?');
 			if(returnValue) {
 				alert('취소되었습니다.')
-				location.href="/deleteClassCheck?rseq"+rseq;
+				location.href="/classCancel?rseq="+seq;
+				
+				window.opener.name="parentPage";
+				document.classCancel.target="parentPage";
+				document.classCancel.action="/classCalendarView";
+				document.classCancel.submit();
+				
 				self.close();
 			} else {
+				alert('Class Checking 페이지로 이동합니다.');
 				
+				self.close();
 			}
 		} else {
-			alert("비밀번호가 일치하지 않습니다.");
+			alert("회원 비밀번호가 일치하지 않습니다.");
+			return false;
 		}
 	}
-	
 	function cancel() {
 		window.close();
 	}
 </script>
 </head>
 <body>
-		<section class="breadcrumbs">
-			<div class="container">
-				<div class="d-flex justify-content-between align-items-center">
-					<h2>에약 취소</h2>
-					<ol>
-						<li><a href="/classCalendar">수업 예약</a></li>
-						<li>에약 취소</li>
-					</ol>
-				</div>
-			</div>
-		</section>
-		<!-- End Breadcrumbs -->
 	<section class="myContent">
-		<div class="container reservation">
-			<form>
-				<input type="hidden" th:value="${reservation.rseq}" id="rseq">
-				<input type="hidden" th:value="${member.password}" id="mPwd">
-				<div class="py-5 text-center">
-					<h2 class="">비밀번호 확인</h2>
-					<hr class="mt-4">
+		<div class="container">
+			<div class="board_wrap">
+				<br>
+				<br>
+				<div class="board_title">
+					<strong>수업 취소</strong>
 				</div>
-				<div class="row g-3">
-					<div class="text-center">
-						<div class="mx-auto">
-							<label class="form-label">회원 비밀번호</label>
-							<input type="text" id="mPwdPut" class="border border-secondary ms-3 mb-5" required>
+				<div class="board_write_wrap">
+					<form th:action="@{/classCancel}" name="classCancel">
+						<input type="hidden" th:value="${reservation.rseq}" id="rseq">
+						<input type="hidden" th:value="${reservation.member.password}" id="mPwd">
+						<div class="board_write">
+						<br>
+						<div class="title">
+							<p>수업 예약 취소를 원하시면 회원 비밀번호를 입력해주세요.</p>
+						</div>
+							<dl>
+								<dd>
+									<strong>회원 비밀번호</strong>
+									<input type="password" name="mPwdPut" placeholder="비밀번호 입력" id="mPwdPut">
+								</dd>
+								<br>
+								<br>
+							</dl>
+						<hr>
 						</div>
 						<div class="bt_wrap">
-							<button class="btItem" type="submit">예약취소</button>
-							<a href="classReservation" class="btItem">취소</a>
+							<button type="button" onclick="classCancelCheck()" class="btItem">예약취소</button>
+							<button type="button" onclick="cancel()" class="btItem">취소</button>
 						</div>
-					</div>
+					</form>
 				</div>
-			</form>
+			</div>
 		</div>
 	</section>
-
-	<script src="assets/js/main.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>

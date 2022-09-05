@@ -3,31 +3,38 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+}
+a {
+  color: #8e44ad;
+}
+a:hover {
+  color: #8e44ad;
+  text-decoration: inherit;
 }
 body{
   margin: 0;
   padding: 0;
   background: linear-gradient(120deg,#2980b9, #8e44ad);
-  height: 100vh;
+  height: 150vh;
   overflow: hidden;
 }
-.center{
+.center_login{
   position: absolute;
-  top: 50%;
+  top: 43%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 400px;
+  margin-bottom: 100px;
   background: white;
   border-radius: 10px;
   box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
 }
-.center h1{
+.center_login h1{
   text-align: center;
   padding: 20px 0;
   border-bottom: 1px solid silver;
 }
-.center form{
+.center_login form{
   padding: 0 40px;
   box-sizing: border-box;
 }

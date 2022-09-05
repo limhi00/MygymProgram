@@ -8,6 +8,15 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
 <title>My Fitness Program - 수업확인</title>
+<script type="text/javascript">
+	function classCancel() {
+		var seq = document.getElementById("rseq").value;
+		var url = "/classCancelView?rseq="+seq;
+		var name = "classCancel";
+		var features = "fullscreen=no,menubar=no,status=no,toolbar=no,titlebar=no,location=no,scrollbar=auto,width=800,height=500,top=200,left=600";
+		window.open(url, name, features);
+	}
+</script>
 </head>
 <body>
 <div layout:fragment="content">
@@ -29,35 +38,39 @@
 				<div class="py-5 text-center">
 					<h1>Class Checking</h1>
 				</div>
-
 				<div class="row g-3 justify-content-center">
 					<div class="col-md-7 col-lg-8">
 						<hr class="mb-5">
 						<h4 class="mb-5">
 						</h4>
 						<form class="needs-validation" novalidate>
+							<input type="hidden" th:value="${reservation.rseq}" name="rseq" id="rseq">
 							<div class="row g-3">
-
-								<div class="col-md-6 mx-5 my-5">
+								<div class="col-md-6 mx-5 my-3">
 									<label class="form-label">회원명</label>
-									<input name="member" id="member" type="text" th:value="${reservation.member.name}" readonly class="form-control-plaintext fw-bolder">
+									<input name="member" id="member" type="text" th:value="${reservation.member.name}" class="form-control-plaintext fw-bolder" readonly>
 								</div>
 
-								<div class="col-md-12 mx-5 my-5">
+								<div class="col-md-10 mx-5 my-3">
 									<label class="form-label">회원 전화번호</label>
-									<input type="text" readonly class="form-control-plaintext fw-bold" th:value='${reservation.member.phone}' required>
+									<input type="text" class="form-control-plaintext fw-bold" th:value='${reservation.member.phone}' readonly>
 								</div>
 
-								<div class="col-2 mx-5 my-5">
+								<div class="col-2 mx-5 my-3">
 									<label class="form-label">시간 선택</label> 
-									<input type="text" readonly class="form-control-plaintext mb-5 fw-bold bg-danger bg-opacity-25 text-dark" th:value="${reservation.classTime}+':00 ~ '+${reservation.classTime}+':50'" required>
+									<input type="text" class="form-control-plaintext fw-bold bg-danger bg-opacity-25 text-dark" th:value="${reservation.classTime}+':00 ~ '+${reservation.classTime}+':50'" readonly>
+								</div>
+								
+								<div class="col-md-10 mx-5 my-3">
+									<label class="form-label">담당 트레이너</label>
+									<input type="text" class="form-control-plaintext fw-bold" th:value="${reservation.cTrainer}+' 선생님'" readonly>
 								</div>
 							</div>
 
 							<div class="bt_wrap mx-5 my-5">
-								<a class="btItem" href="/classCancel" >예약취소</a>
-								<a class="btItem" href="/classCalendarView" style="width: 130px">달력으로 이동</a>
-								<a class="btItem" href="/getClassDiary">수업일지</a>
+								<a href="" onclick="classCancel()" class="btItem">예약취소</a>
+								<a href="/classCalendarView" class="btItem" style="width: 130px">달력으로 이동</a>
+								<a th:href="@{/getClassDiary(rseq=${reservation.rseq})}" class="btItem">수업일지</a>
 							</div>
 						</form>
 					</div>
