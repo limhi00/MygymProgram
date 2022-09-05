@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/_layout">
+<head>
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<link href="/assets/css/style_dietDiary.css" rel="stylesheet">
+
+<title>My Fitness Program - 식단 작성</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<!-- ======= Breadcrumbs ======= -->
+		<section class="breadcrumbs">
+			<div class="container">
+				<div class="d-flex justify-content-between align-items-center">
+					<h2>식단 작성 페이지</h2>
+					<ol>
+						<li><a href="/dietCalendar">식단 달력</a></li>
+						<li>식단 작성 페이지</li>
+					</ol>
+				</div>
+			</div>
+		</section>
+		<!-- End Breadcrumbs -->
+
+		<form th:action="@{/insertDiary}" method="POST">
+			<section class="myContent">
+			<div class="diary_wrap">
+				<div class="title">
+					<div><input name="member" id="member" type="text"
+						th:value="${#authentication.name}" readonly>님의<br> <input type="text" name="d_indate" th:value="${d_indate}" readonly>식단
+						작성</div>
+				</div>
+					<div class="meal">
+						<table class="type04">
+							<tr>
+								<th scope="row">아침</th>
+								<td><input type="text" name="breakfast" placeholder="아침">
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">점심</th>
+								<td><input type="text" name="lunch" placeholder="점심">
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">저녁</th>
+								<td><input type="text" name="dinner" placeholder="저녁">
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">야식</th>
+								<td><input type="text" name="snack" placeholder="야식">
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="bmi">
+						<table class="type04">
+							<tr>
+								<th scope="row">체중(kg)</th>
+								<td><input type="text" name="weight" placeholder="체중">
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">체지방(%)</th>
+								<td><input type="text" name="fat" placeholder="체지방">
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">골격근(%)</th>
+								<td><input type="text" name="muscle" placeholder="골격근">
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="bt_wrap">
+					<button type="submit" class="btItem">등록</button>
+					<button type="reset" class="btItem">취소</button>
+				</div>
+			</section>
+		</form>
+	</div>
+</body>
+</html>

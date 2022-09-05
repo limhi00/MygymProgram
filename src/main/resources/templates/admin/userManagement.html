@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout/_layout">
+<head>
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>My Fitness Program - 회원 관리</title>
+<link rel="stylesheet" href="../assets/css/style_board.css">
+</head>
+<body>
+
+	<div layout:fragment="content">
+
+		<!-- ======= Breadcrumbs ======= -->
+		<section class="breadcrumbs">
+			<div class="container">
+				<div class="d-flex justify-content-between align-items-center">
+					<h2>회원 관리</h2>
+					<ol>
+						<li><a href="/admin/userManagement">회원 관리</a></li>
+						<li>관리자 기능</li>
+					</ol>
+				</div>
+			</div>
+		</section>
+		<!-- End Breadcrumbs -->
+
+		<section class="myContent">
+			<div class="container">
+
+				<div class="board_wrap">
+					<div class="board_title">
+						<strong>회원 목록</strong>
+					</div>
+					<div class="search_1_user">
+						<form th:action="@{/admin/userManagement}" method="get" id="search-form" name="searchForm">
+							<select name="searchSelect">
+								<option value="name">회원명</option>
+								<option value="phone">전화번호</option>
+							</select> 
+							<input type="text" name="searchKeyword" id="search">
+							<button type="submit" id="searchBtn">
+								<i class="bx bx-search-alt-2"></i>
+							</button>
+						</form>
+					</div>
+					<div class="board_list_wrap">
+						<div class="board_list">
+							<div class="top_member">
+								<div class="num">번호</div>
+								<div class="id">아이디</div>
+								<div class="name">회원명</div>
+								<div class="phone">전화번호</div>
+								<div class="joinDate">가입일</div>
+								<div class="role">권한</div>
+							</div>
+							<div th:each="member, memberStat : ${memberList}">
+								<input name="username" type="hidden" th:value="${member.username}">
+								<div class="num" th:text="${memberStat.count}"></div>
+								<div class="id" th:text="${member.username}"></div>
+								<div class="name">
+									<a th:text="${member.name}" th:href="@{|/members/mypage/${member.username}|}"></a>
+								</div>
+								<div class="phone" th:text="${member.phone}"></div>
+								<div class="joinDate" th:text="${#temporals.format(member.createDate,'yyyy-MM-dd')}"></div>
+								<div class="role" th:text="${member.role}"></div>
+							</div>
+						</div>
+					</div>
+					<div class="page_wrap">
+							<div class="board_page"
+								th:each="page : ${#numbers.sequence(startPage, endPage)}">
+							<a class="num" th:if="${page != nowPage}"
+								th:href="@{/admin/userManagement(page=${page-1}, searchSelect=${param.searchSelect}, searchKeyword=${param.searchKeyword})}"
+								th:text="${page}">
+							</a> 
+							<strong class="num on"
+								th:if="${page == nowPage}" th:text="${page}">
+							</strong>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</body>
+</html>

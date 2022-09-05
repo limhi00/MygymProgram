@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Fitness Program - 글 신고</title>
+<link href="assets/css/style_board.css" rel="stylesheet">
+</head>
+<body>
+	<div class="board_wrap">
+		<div class="board_title">
+			<strong>글 신고</strong>
+		</div>
+		<div class="board_write_wrap">
+			<form th:action="@{/reportPage}" method="post">
+			<input type="hidden" th:value="${board.bseq}" id="bseq" name="board">
+				<div class="board_write">
+					<div class="title">
+						<input name="rTitle" type="text" placeholder="제목 입력">
+					</div>
+					<hr>
+					<div class="cont">
+						<textarea name="rContent" placeholder="내용 입력"></textarea>
+					</div>
+				</div>
+				<div class="bt_wrap">
+					<input type="submit" value="신고" class="btItem">
+					<button type="button" onclick="cancel()" class="btItem">취소</button>
+				</div>
+				<script type="text/javascript">
+					function cancel() {
+						window.close();
+					}
+				</script>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

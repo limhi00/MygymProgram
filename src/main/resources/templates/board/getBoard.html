@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	  layout:decorate="layout/_layout">
+<head>
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>My Fitness Program - 게시글 상세</title>
+<!-- 작성하는 페이지에 별도의 CSS가 필요하면 추가. -->
+<link href="assets/css/style_board.css" rel="stylesheet">
+</head>
+<body>
+	<div layout:fragment="content">
+
+		<!--  Breadcrumbs  -->
+		<section class="breadcrumbs">
+			<div class="container">
+				<div class="d-flex justify-content-between align-items-center">
+					<h2>게시글</h2>
+					<ol>
+						<li><a href="/allBoardList">게시글</a></li>
+						<li>게시판</li>
+					</ol>
+				</div>
+			</div>
+		</section>
+		<!-- End Breadcrumbs -->
+
+		<section class="myContent">
+			<div class="container">
+				<form name="boardData" id="boardData" method="get">
+					<input type="hidden" th:value="${board.bseq}" id="bseq">
+					<div class="board_wrap">
+						<div class="board_view_wrap">
+							<div class="board_view">
+								<div class="title" th:text="${board.title}"></div>
+								<div class="info">
+									<dl>
+										<dt>번호</dt>
+										<dd th:text="${board.bseq}"></dd>
+									</dl>
+									<dl>
+										<dt>글쓴이</dt>
+										<dd th:text="${board.writer}"></dd>
+									</dl>
+									<dl>
+										<dt>등록일자</dt>
+										<dd th:text="${#dates.format(board.createDate,'yyyy-MM-dd HH:mm')}"></dd>
+									</dl>
+								</div>
+								<div class="cont" th:text="${board.content}"></div>
+								<div class="upload">
+									<a th:href="@{${board.filepath}}" th:text="${board.filename}"></a>
+								</div>
+							</div>
+							<div id="disqus_thread"></div>
+							<script>
+								/**
+								 *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+								 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+								/*
+								var disqus_config = function () {
+								this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+								this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+								};
+								 */
+								(function() { // DON'T EDIT BELOW THIS LINE
+									var d = document, s = d
+											.createElement('script');
+									s.src = 'https://yjs-gym.disqus.com/embed.js';
+									s.setAttribute('data-timestamp',
+											+new Date());
+									(d.head || d.body).appendChild(s);
+								})();
+							</script>
+							<noscript>
+								Please enable JavaScript to view the 
+								<a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+							</noscript>
+							<div class="bt_wrap">
+								<a href="/allBoardList" class="btItem">목록</a>
+								<a th:href="@{/updateBoard(bseq=${board.bseq})}" class="btItem">수정</a>
+								<a href="" onclick="reportPopup()" class="btItem">신고</a>
+								<a href="" onclick="deletePopup()" class="btItem">삭제</a>
+								<a th:href="@{/admin/deleteBoardAdmin(bseq=${board.bseq})}" class="btItem"  sec:authorize="hasRole('ROLE_ADMIN')" style="width:100px;">관리자 삭제</a>
+							</div>
+							<script type="text/javascript">
+								function deletePopup(){
+									var seq = document.getElementById("bseq").value;
+									var url = "/deleteBoardView?bseq="+seq;
+									var name = "deleteBoardForm";
+									var features = "fullscreen=no,menubar=no,status=no,toolbar=no,titlebar=no,location=no,scrollbar=auto,width=800,height=500,top=200,left=600";
+									console.log("URL="+url);
+									window.open(url, name, features);
+								}
+								function reportPopup(){
+									var seq = document.getElementById("bseq").value;
+									var url = "/reportPageView?bseq="+seq;
+									var name = "reportPageForm";
+									var features = "fullscreen=no,menubar=no,status=no,toolbar=no,titlebar=no,location=no,scrollbar=auto,width=800,height=560,top=200,left=600";
+									console.log("URL="+url);
+									window.open(url, name, features);
+								}
+							</script>
+						</div>
+					</div>
+				</form>
+			</div>
+		</section>
+	</div>
+</body>
+</html>

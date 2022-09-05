@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>My Fitness Program - 카테고리 삭제</title>
+<link rel="stylesheet" href="../assets/css/style_board.css">
+<script>
+function cancle() {
+	window.close();
+}
+</script>
+</head>
+<body>
+	<section class="myContent">
+		<div class="container">
+
+			<div class="board_wrap">
+				<div class="board_title">
+					<strong>카테고리 삭제</strong>
+				</div>
+				<div class="board_write_wrap">
+					<input type="hidden" th:value="${category.cid}" id="cid">
+					<div class="board_write">
+						<div class="title">
+							<dl>
+								<dd>
+									<strong><p>카테고리를 삭제 하시겠습니까?</p></strong>
+								</dd>
+							</dl>
+						</div>
+						<hr>
+						<br> <br>
+					</div>
+					<div class="bt_wrap">
+						<a th:href="@{/admin/deleteCategory(cid=${category.cid})}" class="btItem">삭제</a>
+						<a href="" onclick="cancle()" class="btItem">취소</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</section>
+</body>
+</html>

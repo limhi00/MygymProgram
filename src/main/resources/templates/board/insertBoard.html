@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/_layout">
+<head>
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>게시글 등록</title>
+  <!-- 작성하는 페이지가 CSS가 별도로 필요하면 추가한다. -->
+  <link href="assets/css/style_board.css" rel="stylesheet">
+ <script>
+ function alertNull() {
+	 var form = document.getElementById("insertBoard");
+	 
+	 var title = document.getElementById("title");
+	 if (title.value == "") {
+		 alert("제목을 입력해주세요");
+		 title.focus();
+		 
+		 return false;
+	 }
+	 var writer = document.getElementById("writer");
+	 if (writer.value == "") {
+		 alert("글쓴이를 입력해주세요");
+		 writer.focus();
+		 
+		 return false;
+	 }
+	 var boardPwd = document.getElementById("boardPwd");
+	 if (boardPwd.value == "") {
+		 alert("글 비밀번호를 입력해주세요");
+		 boardPwd.focus();
+		 
+		 return false;
+	 }
+	 var content = document.getElementById("content");
+	 if (content.value == "") {
+		 alert("내용을 입력해주세요");
+		 content.focus();
+		 
+		 return false;
+	 }
+	 var member = document.getElementById("member");
+	 if (member.value == "") {
+		 alert("로그인 후 이용해주세요");
+		 member.focus();
+		 
+		 return false;
+	 }
+	 
+	 form.action = "/insertBoard";
+	 form.submit();
+ }
+ 
+ </script>
+</head>
+<body>
+	<div layout:fragment="content">
+
+		<!-- ======= Breadcrumbs ======= -->
+		<section class="breadcrumbs">
+			<div class="container">
+				<div class="d-flex justify-content-between align-items-center">
+					<h2>게시글 등록</h2>
+					<ol>
+						<li><a href="#">게시글 등록</a></li>
+						<li>게시판</li>
+					</ol>
+				</div>
+			</div>
+		</section>
+		<!-- End Breadcrumbs -->
+
+		<section class="myContent">
+			<div class="container">
+				<div class="board_wrap">
+					<div class="board_title">
+						<strong>글 등록</strong>
+					</div>
+
+					<div class="board_write_wrap">
+
+						<div class="board_write">
+							<form th:action="@{/insertBoard}" method="post" enctype="multipart/form-data" id="insertBoard">
+
+								<div class="title">
+									<dl>
+										<dt>제목</dt>
+										<dd>
+											<input name="title" id="title" type="text" placeholder="제목 입력">
+										</dd>
+									</dl>
+								</div>
+								<div class="info">
+									<dl>
+										<dt>글쓴이</dt>
+										<dd>
+											<input name="writer" id="writer" type="text" placeholder="글쓴이 입력">
+										</dd>
+									</dl>
+									<dl>
+										<dt>비밀번호</dt>
+										<dd>
+											<input name="boardPwd" id="boardPwd" type="password" placeholder="비밀번호 입력">
+										</dd>
+									</dl>
+									<dl>
+										<dt>아이디</dt>
+										<dd>
+											<input name="member" id="member" type="text" th:value="${#authentication.name}" readonly>
+										</dd>
+									</dl>
+									<dl>
+										<dt>카테고리</dt>
+										<dd>
+											<select name="category">
+												<option th:each="category : ${categoryList}" th:value="${category.cid}" th:text="${category.name}"></option>
+											</select>
+										</dd>
+									</dl>
+								</div>
+								<div class="cont">
+									<textarea name="content" id="content" placeholder="내용 입력"></textarea>
+								</div>
+								<input type="file" name="file" class="upload" multiple/>
+								<div class="bt_wrap">
+									<input type="button" onclick="alertNull()" value="등록" class="btItem">
+									<a href="/allBoardList" class="btItem">취소</a>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</body>
+</html>

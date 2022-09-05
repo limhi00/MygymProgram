@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>My Fitness Program - 카테고리 입력</title>
+<link rel="stylesheet" href="../assets/css/style_board.css">
+<script>
+function cancle() {
+	window.close();
+}
+</script>
+</head>
+<body>
+	<section class="myContent">
+		<div class="container">
+			<div class="board_wrap">
+				<div class="board_title">
+					<strong>카테고리 추가</strong>
+				</div>
+				<form th:action="@{/admin/insertCategory}" method="post">
+					<div class="board_write_wrap">
+
+						<div class="board_write">
+							<div class="title">
+								<dl>
+									<dd>
+										<p>추가를 원하시면 새로운 카테고리명 입력해주세요.</p>
+									</dd>
+								</dl>
+							</div>
+							<hr>
+							<br> <br>
+							<dl>
+								<dd>
+									<input name="name" type="text" placeholder="카테고리 명">
+								</dd>
+								<br>
+								<br>
+							</dl>
+							<hr>
+						</div>
+						<div class="bt_wrap">
+							<input type="submit" value="저장" class="btItem">
+							<input type="button" value="취소" onclick="cancle()" class="btItem">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

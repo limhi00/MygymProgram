@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/_layout">
+<head>
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>My Fitness Program - 카테고리 관리</title>
+<link href="../assets/css/style_board.css" rel="stylesheet">
+  
+<script>
+function insertCate() {
+	var url = "/admin/insertCategoryView";
+	var name = "insertCategoryView";
+	var features = "fullscreen=no,menubar=no,status=no,toolbar=no,titlebar=no,location=no,scrollbar=auto,width=800,height=450,top=200,left=600";
+	console.log("URL="+url);
+	window.open(url, name, features);
+}
+function deleteCate(cid) {
+	var url = "/admin/deleteCategoryView?cid="+cid;
+	var name = "deleteCategoryView";
+	var features = "fullscreen=no,menubar=no,status=no,toolbar=no,titlebar=no,location=no,scrollbar=auto,width=800,height=350,top=200,left=550";
+	//alert("URL="+url);
+	window.open(url, name, features);
+}
+</script>
+</head>
+<body>
+	<div layout:fragment="content">
+		<!-- ======= Breadcrumbs ======= -->
+		<section class="breadcrumbs">
+			<div class="container">
+				<div class="d-flex justify-content-between align-items-center">
+					<h2>카테고리 관리</h2>
+					<ol>
+						<li><a href="#">게시판 관리</a></li>
+						<li>카테고리 관리</li>
+					</ol>
+				</div>
+			</div>
+		</section>
+		<!-- End Breadcrumbs -->
+
+		<section class="myContent">
+			<div class="container">
+				<div class="board_wrap">
+					<div class="board_title">
+						<strong>카테고리 목록</strong>
+					</div>
+					<div class="board_list_wrap">
+						<form>
+							<div class="board_list">
+								<div class="top_cate">
+									<div class="num">번호</div>
+									<div class="title">카테고리 이름</div>
+								</div>
+								<div th:each="category, state : ${categoryList}">
+									<div class="num" th:text="${state.count}"></div>
+									<input type="hidden" name="cid" th:value="${category.cid}" id="cid">
+									<div class="title_cate" th:text="${category.name}"></div>
+									<div class="bt_wrap m-0">
+										<a href="" th:onclick="'deleteCate('+${category.cid}+')'" class="btItem cate">삭제</a>
+									</div>
+								</div>
+							</div>
+						</form>
+							<div class="bt_wrap">
+								<a href="" onclick="insertCate()" class="btItem">카테고리 등록</a>
+							</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</body>
+</html> 

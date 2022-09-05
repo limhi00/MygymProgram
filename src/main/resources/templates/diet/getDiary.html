@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/_layout">
+<head>
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<link href="/assets/css/style_dietDiary.css" rel="stylesheet">
+
+<title>My Fitness Program - 식단 작성</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<!-- ======= Breadcrumbs ======= -->
+		<section class="breadcrumbs">
+			<div class="container">
+				<div class="d-flex justify-content-between align-items-center">
+					<h2>식단 상세보기</h2>
+					<ol>
+						<li><a href="/dietCalendarView">식단 달력</a></li>
+						<li>식단 올리기</li>
+					</ol>
+				</div>
+			</div>
+		</section>
+		<!-- End Breadcrumbs -->
+		<section class="myContent">
+		<form th:action="@{/updateDiary}" method="get">
+			<input type="hidden" name="dseq" th:value="${ddiary.dseq}">
+			<div class="diary_wrap">
+				<div class="title">
+					<strong><input name="member" id="member" type="text"
+						th:value="${#authentication.name}" readonly>님의<br> <input
+						type="text" name="d_indate" th:value="${ddiary.d_indate}" readonly>식단입니다.</strong>
+				</div>
+				<div class="meal">
+					<table class="type04">
+						<tr>
+							<th scope="row">아침</th>
+							<td th:text="${ddiary.breakfast}"></td>
+						</tr>
+						<tr>
+							<th scope="row">점심</th>
+							<td th:text="${ddiary.lunch}"></td>
+						</tr>
+						<tr>
+							<th scope="row">저녁</th>
+							<td th:text="${ddiary.dinner}"></td>
+						</tr>
+						<tr>
+							<th scope="row">야식</th>
+							<td th:text="${ddiary.snack}"></td>
+						</tr>
+					</table>
+				</div>
+				<div class="bmi">
+					<table class="type04">
+						<tr>
+							<th scope="row">체중</th>
+							<td th:text="${ddiary.weight}"></td>
+						</tr>
+						<tr>
+							<th scope="row">체지방</th>
+							<td th:text="${ddiary.fat}"></td>
+						</tr>
+						<tr>
+							<th scope="row">골격근</th>
+							<td th:text="${ddiary.muscle}"></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="bt_wrap">
+				<button type="submit" class="btItem">수정</button>
+				<a href="/dietCalendarView" class="btItem" style="width:120px;">달력으로 이동</a>
+			</div>
+		</form>
+		</section>
+	</div>
+</body>
+</html>
