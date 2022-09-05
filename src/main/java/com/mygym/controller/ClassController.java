@@ -39,14 +39,13 @@ public class ClassController {
 		
 		int count = 0;
 		for (Reservation re : resList) {
-			System.out.println("resList" + re);
 			ReservationListDto vo = new ReservationListDto();
 			vo.setTitle("수업 확인");
 			vo.setStart(re.getClassDate()+"T"+re.getClassTime()+":00:00");
 			vo.setEnd(re.getClassDate()+"T"+re.getClassTime()+":50:00");
 			vo.setUrl("/classChecking?rseq="+re.getRseq());
-			vo.setColor("#2C3E50");
-			vo.setTextColor("#000");
+			vo.setColor("#ff4800");
+			vo.setTextColor("#fff");
 			
 			eventMap.put("event"+count, vo);
 			++count;

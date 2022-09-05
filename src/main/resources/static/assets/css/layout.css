@@ -522,6 +522,21 @@ section {
 	transition: .3s;
 }
 
+.myContent_class {
+	font-size: 17px;
+}
+.myContent_class input[type="text"] {
+	padding: 5px;
+	border-radius: 4px;
+	font-size: 17px;
+}
+.myContent_class .select {
+	font-size: 17px;
+}
+
+.myContent_calendar a {
+	color: #444;
+}
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
