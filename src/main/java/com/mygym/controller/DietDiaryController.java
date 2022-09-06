@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mygym.domain.DietDiary;
-import com.mygym.domain.DietDiaryListDto;
+import com.mygym.domain.FullCalendarDto;
 import com.mygym.service.DietDiaryService;
 
 @Controller
@@ -32,15 +32,15 @@ public class DietDiaryController {
 	
 	@GetMapping("/dietCalendarList")
 	@ResponseBody
-	public Map<String, DietDiaryListDto> dietCalendarList(Principal principal) {
+	public Map<String, FullCalendarDto> dietCalendarList(Principal principal) {
 		
-		Map<String, DietDiaryListDto> eventMap = new HashMap<>();
+		Map<String, FullCalendarDto> eventMap = new HashMap<>();
 		List<DietDiary> ddiaryList = ddiaryService.getDiaryList(principal.getName());
 		
 		int count = 0;
 		for (DietDiary dd : ddiaryList) {
 //			System.out.println("ddiaryList" + dd);
-			DietDiaryListDto vo = new DietDiaryListDto();
+			FullCalendarDto vo = new FullCalendarDto();
 			vo.setTitle("식단 확인");
 			vo.setStart(dd.getD_indate());
 			vo.setUrl("/getDiary?dseq="+dd.getDseq());

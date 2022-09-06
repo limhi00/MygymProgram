@@ -65,7 +65,7 @@
 									<label class="form-label">트레이너 선택</label>
 									<select class="select form-select mb-5" name="cTrainer" required>
 										<option value="">트레이너 선택</option>
-										<option th:each="cTrainer : ${cTrainerList}" th:value="${cTrainer.name}" th:text="${cTrainer.name}"></option>
+										<option th:each="cTrainer : ${cTrainerList}" th:value="${cTrainer.username}" th:text="${cTrainer.name}"></option>
 									</select>
 								</div>
 							</div>

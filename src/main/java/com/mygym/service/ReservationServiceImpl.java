@@ -43,10 +43,22 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 
 	@Override
+	public String getCTrainerName(String cTrainer) {
+		
+		return resRepo.getCTrainerName(cTrainer);
+	}
+
+	@Override
 	public Long insertReservation(Reservation res) {
 		
 		res.setClassDate(res.getClassDate());
+		
 		Long rseq = resRepo.save(res).getRseq();
+
+		ClassDiary cDiary = new ClassDiary();
+		cDiary.setReservation(res);
+		cDiary.setMember(res.getMember());
+		cdRepo.save(cDiary);
 		
 		return rseq;
 	}
@@ -59,19 +71,30 @@ public class ReservationServiceImpl implements ReservationService{
 
 	@Override
 	public ClassDiary getClassDiary(Long rseq) {
-
-		ClassDiary cDiary = new ClassDiary();
-		cDiary.setReservation(resRepo.findById(rseq).get());
 		
-		return cDiary;
+		return cdRepo.getClassDiary(rseq);
+	}
+	
+	public ClassDiary findClassDiary(Reservation res) {
+		
+		return cdRepo.findByReservation(res);
+	}
+	
+	public ClassDiary getClassDiaryCdseq(Long cdseq) {
+		
+		return cdRepo.findById(cdseq).get();
 	}
 
 	@Override
-	public Long insertClassDiary(ClassDiary cDiary) {
+	public void insertClassDiary(ClassDiary cDiary) {
 		
-		Long rseq = cdRepo.save(cDiary).getReservation().getRseq();
+		cdRepo.save(cDiary);
+	}
+
+	@Override
+	public List<Reservation> getTrainerReservationList(String username) {
 		
-		return rseq;
+		return resRepo.getTrainerReservationList(username);
 	}
 	
 }

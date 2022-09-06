@@ -63,13 +63,14 @@
 								
 								<div class="col-md-10 mx-5 my-3">
 									<label class="form-label">담당 트레이너</label>
-									<input type="text" class="form-control-plaintext fw-bold" th:value="${reservation.cTrainer}+' 선생님'" readonly>
+									<input type="text" class="form-control-plaintext fw-bold" th:value="${cTrainer}+' 선생님'" readonly>
 								</div>
 							</div>
 
 							<div class="bt_wrap mx-5 my-5">
 								<a href="" onclick="classCancel()" class="btItem">예약취소</a>
-								<a href="/classCalendarView" class="btItem" style="width: 130px">달력으로 이동</a>
+								<a href="/classCalendarView" sec:authorize="hasAnyRole('ROLE_MEMBER')" class="btItem" style="width:150px;">달력으로 이동</a>
+							<a href="/classScheduleView" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_TRAINER')" class="btItem" style="width:150px;">수업시간표로 이동</a>
 								<a th:href="@{/getClassDiary(rseq=${reservation.rseq})}" class="btItem">수업일지</a>
 							</div>
 						</form>

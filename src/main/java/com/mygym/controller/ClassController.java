@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.mygym.domain.ClassDiary;
 import com.mygym.domain.Member;
 import com.mygym.domain.Reservation;
-import com.mygym.domain.ReservationListDto;
+import com.mygym.domain.FullCalendarDto;
 import com.mygym.service.ReservationService;
 
 @Controller
@@ -27,22 +27,27 @@ public class ClassController {
 	@Autowired
 	private ReservationService resService;
 	
+	@GetMapping("/classCalendar")
+	public String classCalendar() {
+		
+		return "class/classCalendar";
+	}
 	@GetMapping("/classCalendarView")
 	public String classCalendarView() {
 		
-		return "class/classCalendar";
+		return "redirect:/classCalendar";
 	}
 	
 	@GetMapping("/classCalendarList")
 	@ResponseBody
-	public Map<String, ReservationListDto> classCalendarList(Principal principal) {
+	public Map<String, FullCalendarDto> classCalendarList(Principal principal) {
 		
-		Map<String, ReservationListDto> eventMap = new HashMap<>();
+		Map<String, FullCalendarDto> eventMap = new HashMap<>();
 		List<Reservation> resList = resService.getReservationList(principal.getName());
 		
 		int count = 0;
 		for (Reservation re : resList) {
-			ReservationListDto vo = new ReservationListDto();
+			FullCalendarDto vo = new FullCalendarDto();
 			vo.setTitle("수업 확인");
 			vo.setStart(re.getClassDate()+"T"+re.getClassTime()+":00:00");
 			vo.setEnd(re.getClassDate()+"T"+re.getClassTime()+":50:00");
@@ -61,9 +66,13 @@ public class ClassController {
 	public String classChecking(@RequestParam("rseq") Long rseq, Model model, Reservation res) {
 		
 //		System.out.println("rseq="+rseq);
-		res = resService.getReservation(rseq);
 //		System.out.println("reservation="+res);
+		res = resService.getReservation(rseq);
+		String cTrainerName = resService.getCTrainerName(res.getCTrainer());
+		String username = resService.getCTrainerName(res.getMember().getUsername());
 		model.addAttribute("reservation", res);
+		model.addAttribute("cTrainer", cTrainerName);
+		model.addAttribute("username", username);
 		
 		return "class/classChecking";
 	}
@@ -82,6 +91,7 @@ public class ClassController {
 	public String classReservation(RedirectAttributes rattr, Reservation res) {
 		
 		Long rseq = resService.insertReservation(res);
+		
 		rattr.addAttribute("rseq", rseq);
 		
 		return "redirect:/classChecking";
@@ -106,26 +116,62 @@ public class ClassController {
 	public String getClassDiary(Long rseq, ClassDiary cDiary, Model model) {
 		
 		cDiary = resService.getClassDiary(rseq);
+		System.out.println("get cDiary="+cDiary);
 		model.addAttribute("cDiary", cDiary);
 		
 		return "class/getClassDiary";
 	}
 	
-	@GetMapping("/insertClassDiary")
-	public String insertClassDiaryView(@RequestParam Long rseq, ClassDiary cDiary, Model model) {
+	@RequestMapping("/insertClassDiaryView")
+	public String insertClassDiaryView(Long rseq, ClassDiary cDiary, Model model) {
 		
 		cDiary = resService.getClassDiary(rseq);
+		System.out.println("rseq="+rseq);
+		System.out.println("insertView cDiary="+cDiary);
 		model.addAttribute("cDiary", cDiary);
 		
 		return "class/insertClassDiary";
 	}
 	
-	@PostMapping("/insertClassDiary")
-	public String insertClassDiary(ClassDiary cDiary, Model model) {
+	@RequestMapping("/insertClassDiary")
+	public String insertClassDiary(Long rseq, ClassDiary cDiary) {
 		
-		Long rseq = resService.insertClassDiary(cDiary);
-		model.addAttribute("rseq", rseq);
+		Reservation reservation = new Reservation();
+		reservation.setRseq(rseq);
+		cDiary = resService.findClassDiary(reservation);
+		System.out.println("insert cDiary="+cDiary);
+		resService.insertClassDiary(cDiary);
 		
 		return "redirect:/getClassDiary";
+	}
+	
+	@GetMapping("/classScheduleView")
+	public String classScheduleView() {
+		
+		return "trainer/classSchedule";
+	}
+	
+	@GetMapping("/classScheduleList")
+	@ResponseBody
+	public Map<String, FullCalendarDto> classScheduleList(Principal principal) {
+		
+		Map<String, FullCalendarDto> eventMap = new HashMap<>();
+		List<Reservation> resList = resService.getTrainerReservationList(principal.getName());
+		
+		int count = 0;
+		for (Reservation re : resList) {
+			FullCalendarDto vo = new FullCalendarDto();
+			vo.setTitle("수업 확인");
+			vo.setStart(re.getClassDate()+"T"+re.getClassTime()+":00:00");
+			vo.setEnd(re.getClassDate()+"T"+re.getClassTime()+":50:00");
+			vo.setUrl("/classChecking?rseq="+re.getRseq());
+			vo.setColor("#ff4800");
+			vo.setTextColor("#fff");
+			
+			eventMap.put("event"+count, vo);
+			++count;
+		}
+		
+		return eventMap;
 	}
 }

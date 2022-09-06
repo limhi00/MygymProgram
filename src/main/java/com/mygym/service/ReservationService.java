@@ -17,10 +17,18 @@ public interface ReservationService {
 	
 	List<Member> getCTrainerList(String role);
 	
+	String getCTrainerName(String cTrainer);
+	
 	void deleteReservation(Reservation res);
 	
 	ClassDiary getClassDiary(Long rseq);
 	
-	Long insertClassDiary(ClassDiary cDiary);
+	ClassDiary findClassDiary(Reservation res);
+	
+	ClassDiary getClassDiaryCdseq(Long cdseq);
+	
+	void insertClassDiary(ClassDiary cDiary);
+	
+	List<Reservation> getTrainerReservationList(String username);
 
 }

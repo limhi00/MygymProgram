@@ -7,9 +7,10 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class DietDiaryListDto {
+public class FullCalendarDto {
 	private String title;
 	private String start;
+	private String end;
 	private String url;
 	private String color;
 	private String textColor;

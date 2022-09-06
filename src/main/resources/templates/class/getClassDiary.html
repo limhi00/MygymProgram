@@ -31,24 +31,35 @@
 			<div class="container">
 				<!-- 내용 작성. -->
 				<div class="board_wrap">
-				<form method="get">
 					<div class="board_view_wrap">
+					<form>
+						<input type="hidden" th:value="${cDiary.cdseq}" name="rseq">
 						<div class="board_view">
 							<div class="title">
 								<dl>
-									<dt>수업시간</dt><br>
-									<dd th:text="${cDiary.reservation.classDate}+' '+${cDiary.reservation.classTime}+':00 ~ '+${cDiary.reservation.classTime}+':50'"></dd>
-								<dl>
+									<dd>
+										<input style="border:none;" type="text" name="classDateTime" th:value="${cDiary.reservation.classDate}+' '+${cDiary.reservation.classTime}+':00 ~ '+${cDiary.reservation.classTime}+':50'" readonly>
+									</dd>
+									<dd>
+										<input style="border:none;" type="text" name="member" th:value="'트레이너명: '+${cDiary.reservation.cTrainer}" readonly>
+									</dd>
+									<dd>
+										<input style="border:none;" type="text" name="member" th:value="'회원명: '+${cDiary.member.name}" readonly>
+									</dd>
+								</dl>
 							</div>
 							<div class="cont">
 								<dl>
-									<dd th:text="${cDiary?.content}"></dd>
+									<dd>
+										<textarea style="width: 900px; border:none;" name="content" th:value="${cDiary?.content}" th:text="${cDiary?.content}" readonly></textarea>
+									</dd>
 								</dl>
 							</div>
 							<div class="bt_wrap" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_TRAINER')">
-								<a href="edit.html" class="on">등록</a> 
+								<a th:href="@{/insertClassDiaryView(rseq=${cDiary.reservation.rseq})}" class="on">등록</a>
 							</div>
 						</div>
+						</form>
 						<br>
 						<div id="disqus_thread"></div>
 							<script>
@@ -78,7 +89,6 @@
 							<a href="/classScheduleView" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_TRAINER')" class="btItem" style="width:150px;">수업시간표로 이동</a>
 						</div>
 					</div>
-					</form>
 				</div>
 
 			</div>

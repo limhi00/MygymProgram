@@ -24,7 +24,7 @@ public class ClassDiary {
 	private Long cdseq;
 	
 	@ManyToOne
-	@JoinColumn(name="MEMBER_ID", nullable=false, updatable=false) 
+	@JoinColumn(name="MEMBER_ID", updatable=false) 
 	private Member member;
 	
 	@OneToOne
