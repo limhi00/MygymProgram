@@ -38,7 +38,6 @@
 			<!-- Uncomment below if you prefer to use an image logo -->
 			<!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 			<nav id="navbar_custom" class="navbar_custom">
-			<input type="hidden" th:value="${#authentication.name}" id="id">
 				<ul>
 					<li>
 						<!-- [ROLE_MEMBER]를 [회원]으로 출력되게 하고 싶음. 화면을 줄이면 박스가 어긋나는 현상 있음.
@@ -160,10 +159,10 @@
 					<div class="col-lg-4 col-md-6">
 						<div class="icon-box">
 							<div class="icon">
-								<a href="/allBoardList" onclick="loginAlert()"><i class="bi bi-chat-text"></i></a>
+								<a href="/allBoardList"><i class="bi bi-chat-text"></i></a>
 							</div>
 							<h4 class="title">
-								<a href="/allBoardList" onclick="loginAlert()">게시판</a>
+								<a href="/allBoardList">게시판</a>
 							</h4>
 							<p class="description">당신의 운동영상이나 글을 게시하여 사람들과 소통해보세요.</p>
 						</div>
@@ -531,18 +530,6 @@
 
 	<!-- Template Main JS File -->
 	<script src="assets/js/main.js"></script>
-	<script>
-		function loginAlert() {
-			var id = document.getElementById("id");
-			if (id.value == "") {
-				alert("로그인 후 이용해주세요.");
-				
-				return false;
-			}
-			
-			return true;
-		}
-	</script>
 </body>
 
 </html>

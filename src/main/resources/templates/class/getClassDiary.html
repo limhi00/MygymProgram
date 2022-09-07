@@ -33,7 +33,6 @@
 				<div class="board_wrap">
 					<div class="board_view_wrap">
 					<form>
-						<input type="hidden" th:value="${cDiary.cdseq}" name="rseq">
 						<div class="board_view">
 							<div class="title">
 								<dl>
@@ -51,7 +50,7 @@
 							<div class="cont">
 								<dl>
 									<dd>
-										<textarea style="width: 900px; border:none;" name="content" th:value="${cDiary?.content}" th:text="${cDiary?.content}" readonly></textarea>
+										<textarea style="width: 900px; border:none;" name="content" th:value="${cDiary.content}" th:text="${cDiary.content}" readonly></textarea>
 									</dd>
 								</dl>
 							</div>

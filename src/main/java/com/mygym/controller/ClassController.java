@@ -116,7 +116,9 @@ public class ClassController {
 	public String getClassDiary(Long rseq, ClassDiary cDiary, Model model) {
 		
 		cDiary = resService.getClassDiary(rseq);
-		System.out.println("get cDiary="+cDiary);
+//		System.out.println("get rseq="+rseq);
+//		System.out.println("get cDiary="+cDiary);
+		cDiary.setReservation(resService.getReservation(rseq));
 		model.addAttribute("cDiary", cDiary);
 		
 		return "class/getClassDiary";
@@ -133,14 +135,15 @@ public class ClassController {
 		return "class/insertClassDiary";
 	}
 	
-	@RequestMapping("/insertClassDiary")
-	public String insertClassDiary(Long rseq, ClassDiary cDiary) {
+	@PostMapping("/insertClassDiary")
+	public String insertClassDiary(Long rseq, ClassDiary cDiary, RedirectAttributes rattr) {
 		
-		Reservation reservation = new Reservation();
-		reservation.setRseq(rseq);
-		cDiary = resService.findClassDiary(reservation);
-		System.out.println("insert cDiary="+cDiary);
+//		System.out.println("insertCDiary rseq="+rseq);
+		ClassDiary cd = resService.findClassDiary(resService.getReservation(rseq));
+		cd.setContent(cDiary.getContent());
+//		System.out.println("insert cDiary="+cDiary);
 		resService.insertClassDiary(cDiary);
+		rattr.addAttribute("rseq", rseq);
 		
 		return "redirect:/getClassDiary";
 	}

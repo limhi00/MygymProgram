@@ -29,9 +29,9 @@
 		<section class="myContent">
 			<div class="container">
 				<div class="board_wrap">
-					<form th:action="@{/insertClassDiary}" method="get">
+					<form th:action="@{/insertClassDiary}" method="post">
 						<input type="hidden" name="cdseq" th:value="${cDiary.cdseq}">
-						<input type="hidden" name="reservation" th:value="${cDiary.reservation.rseq}">
+						<input type="hidden" name="rseq" th:value="${cDiary.reservation.rseq}">
 						<div class="board_view_wrap">
 							<div class="board_view">
 								<div class="title">
@@ -54,7 +54,7 @@
 							</div>
 
 							<div class="bt_wrap">
-								<a th:href="@{/insertClassDiary}" class="btItem">등록</a>
+								<input type="submit" class="btItem" th:value="등록">
 							</div>
 						</div>
 					</form>
