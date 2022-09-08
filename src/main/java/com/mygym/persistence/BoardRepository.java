@@ -1,3 +1,4 @@
+
 package com.mygym.persistence;
 
 import org.springframework.data.domain.Page;

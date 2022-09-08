@@ -8,9 +8,22 @@
 
 	<title>아이디 찾기</title>
 	<!-- 작성하는 페이지가 CSS가 별도로 필요하면 추가한다. -->
-
 	<!-- <script src="http://code.jquery.com/jquery-latest.js"></script> -->
 
+	<script th:inline="javascript">
+		function findMemberId() {
+			if (document.getElementById("name").value == "") {
+				alert("이름을 입력해 주세요.");
+				return false;
+			} else if (document.getElementById("email").value == "") {
+				alert("이메일을 입력해 주세요.");
+				return false;
+			} else {
+				document.getElementById("findId").action = "/findId";
+				document.getElementById("findId").submit();
+			}
+		}
+	</script>
 	<style>
 		html {
 			margin: 0;
@@ -60,14 +73,27 @@
 		<!-- End Breadcrumbs -->
 
 		<div class="container">
-			<!-- 아이디 찾기 결과 내용 -->
-			<h1 th:text="${msg}" th:align="center"></h1>
-		</div>
+			<!-- 내용 -->
+			<form th:action="@{/findId}" method="post">
 
-		<div class="bt_wrap">
-			<a href="/findPwdForm" class="btItem">비밀번호 찾기</a>
+				<div class="mb-3">
+					<label for="name" class="form-label">이름</label>
+					<input type="text" name="name" id="name" class="form-control" autofocus>
+				</div>
+
+				<div class="mb-3">
+					<label for="email" class="form-label">이메일</label>
+					<input type="email" name="email" id="email" class="form-control" autofocus>
+				</div>
+
+				<div th:text="${msg}" th:style="${'color: red'}"></div>
+
+				<div class="bt_wrap">
+					<button type="submit" class="btItem" th:onclick="findMemberId()" id="findId">확인</button>
+					<a href="/login" class="btItem">로그인</a>
+				</div>
+			</form>
 		</div>
 	</div>
 </body>
-
 </html>

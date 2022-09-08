@@ -8,6 +8,37 @@
 <title>게시글 수정</title>
   <!-- 작성하는 페이지가 CSS가 별도로 필요하면 추가한다. -->
   <link href="assets/css/style_board.css" rel="stylesheet">
+   <script>
+ function alertNull() {
+	 var form = document.getElementById("updateBoard");
+	 
+	 var title = document.getElementById("title");
+	 if (title.value == "") {
+		 alert("제목을 입력해주세요");
+		 title.focus();
+		 
+		 return false;
+	 }
+	 var boardPwd = document.getElementById("boardPwd");
+	 if (boardPwd.value == "") {
+		 alert("글 비밀번호를 입력해주세요");
+		 boardPwd.focus();
+		 
+		 return false;
+	 }
+	 var content = document.getElementById("content");
+	 if (content.value == "") {
+		 alert("내용을 입력해주세요");
+		 content.focus();
+		 
+		 return false;
+	 }
+	 
+	 form.action = "/updateBoard";
+	 form.submit();
+ }
+ 
+ </script>
 </head>
 <body>
 	<div layout:fragment="content">
@@ -35,7 +66,7 @@
 
 					<div class="board_write_wrap">
 						<div class="board_write">
-							<form th:action="@{/updateBoard}" method="post">
+							<form th:action="@{/updateBoard}" method="post" enctype="multipart/form-data" id="updateBoard">
 								<input name="bseq" type="hidden" th:value="${board.bseq}">
 
 								<div class="title">
@@ -73,11 +104,8 @@
 									<dl>
 										<dt>카테고리</dt>
 										<dd>
-											<select name="category" th:value="${board.category}">
-												<option value="전체게시판">전체게시판</option>
-												<option value="자유게시판">자유게시판</option>
-												<option value="운동영상">운동영상</option>
-												<option value="챌린지">첼린지</option>
+											<select name="category">
+												<option th:each="category : ${categoryList}" th:value="${category.cid}" th:text="${category.name}"></option>
 											</select>
 										</dd>
 									</dl>
@@ -86,11 +114,10 @@
 								<div class="cont">
 									<textarea name="content" th:text="${board.content}"></textarea>
 								</div>
-
 								<div class="upload">
-									<input type="file" id="fileupload" />
+									<a th:href="@{${board.filepath}}" th:text="${board.filename}"></a>
 								</div>
-
+								<input type="file" name="file" class="upload" multiple/>
 								<div class="bt_wrap">
 									<input type="submit" class="btItem" value="수정"> 
 									<a href="#" onclick="location.href = document.referrer;" class="btItem">취소</a>

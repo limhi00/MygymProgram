@@ -102,23 +102,4 @@ public class DietDiaryController {
 		return "redirect:/getDiary";
 	}
 	
-	
-//	@GetMapping("/getDiary")
-//	public String getDiary(DietDiary ddiary, Model model){
-//		model.addAttribute("ddiary", ddiaryservice.getDietDiary(ddiary));
-//		
-//		return "diet/getDiary";
-//	}
-//	
-//	@PostMapping("/insertGetDiary")
-//	public String insertGetDiary(DietDiary ddiary,RedirectAttributes redirectAttributes) {
-//		
-//		System.out.println("Diary =" + ddiary);
-//		long dseq = ddiaryservice.insertDietDiary(ddiary);
-//		System.out.println("insertGetDiary() : dseq="+dseq);
-//		redirectAttributes.addAttribute("dseq", dseq);
-//		
-//		return "redirect:/getDiary";
-//	}
-	
 }

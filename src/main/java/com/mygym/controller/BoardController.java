@@ -130,8 +130,10 @@ public class BoardController {
 	
 	// 게시글 수정 폼
 	@GetMapping("/updateBoard")
-	public String updateBoardForm(Board board, Model model) {
+	public String updateBoardForm(Board board, Category category, Model model) {
+		
 		model.addAttribute("board", boardService.getBoard(board));
+		model.addAttribute("categoryList", boardService.getCategoryList(category));
 		
 		return "board/updateBoard";
 	}

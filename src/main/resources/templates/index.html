@@ -1,28 +1,27 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>My Fitness Program</title>
+	<title>My Fitness Program</title>
 
-<!-- Google Fonts -->
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-	rel="stylesheet" />
+	<!-- Google Fonts -->
+	<link
+		href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+		rel="stylesheet" />
 
-<!-- Vendor CSS Files -->
-<link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet" />
-<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
-<link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
-<link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
-<link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+	<!-- Vendor CSS Files -->
+	<link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet" />
+	<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+	<link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+	<link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
+	<link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
 
-<!-- Template Main CSS File -->
-<link href="assets/css/style.css" rel="stylesheet">
+	<!-- Template Main CSS File -->
+	<link href="assets/css/style.css" rel="stylesheet">
 
 </head>
 
@@ -34,62 +33,53 @@
 			<h1 class="logo me-auto">
 				<a href="/">My Fitness Gym</a>
 			</h1>
-			<!-- <span th:text="${session.member.username}"></span>[<span th:text="${#authentication.name}"></span>]님 안녕하세요. -->
-			<!-- Uncomment below if you prefer to use an image logo -->
-			<!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 			<nav id="navbar_custom" class="navbar_custom">
 				<ul>
 					<li>
-						<!-- [ROLE_MEMBER]를 [회원]으로 출력되게 하고 싶음. 화면을 줄이면 박스가 어긋나는 현상 있음.
-						<span sec:authorize="isAuthenticated()" th:if="${principal.role} == ${'ROLE_MEMBER'}" th:text="${'회원'}"></span> -->
 						<span sec:authorize="isAuthenticated()" class="nav-link scrollto active">
 							<span th:text="${#authentication.name}"></span>
 							[<span sec:authentication="principal.role"></span>]
 						</span>
 					</li>
 					<li>
-						<a class="nav-link scrollto active" sec:authorize="isAuthenticated()" th:href="@{'/members/mypage/'+ ${#authentication.principal.username}}">마이페이지</a>
+						<a class="nav-link scrollto active" sec:authorize="isAuthenticated()"
+							th:href="@{'/mypage/'+ ${#authentication.principal.username}}">마이페이지</a>
 					</li>
 					<li>
-						<a class="getstarted scrollto" sec:authorize="isAnonymous()" href="/members/login" th:href="@{/members/login}">로그인</a>
+						<a class="getstarted scrollto" sec:authorize="isAnonymous()" href="/login"
+							th:href="@{/login}">로그인</a>
 					</li>
 					<li>
-						<a class="getstarted scrollto" sec:authorize="isAuthenticated()" href="/logout" th:href="@{logout}">로그아웃</a>
+						<a class="getstarted scrollto" sec:authorize="isAuthenticated()" href="/logout"
+							th:href="@{/logout}">로그아웃</a>
 					</li>
-				</ul>
-			</nav> 
-			<!-- .navbar -->
-
-			<div class="sidemenu">
-				<input type="checkbox" id="menuicon"> <label for="menuicon">
-					<span></span> <span></span> <span></span>
-				</label>
-				<div class="sidebar">
-					<ul class="side_list">
-						<li class="list_name">큰 페이지</li>
-						<li class="list_link"><a href="#">> 작은 페이지</a></li>
-						<li class="list_link"><a href="#">> 작은 페이지</a></li>
-					</ul>
-				</div>
-			</div>
-
-
+					<!-- .navbar -->
+					<div class="sidemenu">
+						<input type="checkbox" id="menuicon"> <label for="menuicon">
+							<span></span> <span></span> <span></span>
+						</label>
+						<div class="sidebar">
+							<ul class="side_list">
+								<li class="list_name">큰 페이지</li>
+								<li class="list_link"><a href="#">> 작은 페이지</a></li>
+								<li class="list_link"><a href="#">> 작은 페이지</a></li>
+							</ul>
+						</div>
+					</div>
 		</div>
 	</header>
 	<!-- End Header -->
 
 	<!-- ======= Hero Section ======= -->
 	<section id="hero">
-		<div id="heroCarousel" data-bs-interval="5000"
-			class="carousel slide carousel-fade" data-bs-ride="carousel">
+		<div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
 
 			<ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
 
 			<div class="carousel-inner" role="listbox">
 
 				<!-- Slide 1 -->
-				<div class="carousel-item active"
-					style="background-image: url(assets/img/slide/slide-1.jpg)">
+				<div class="carousel-item active" style="background-image: url(assets/img/slide/slide-1.jpg)">
 					<div class="carousel-container">
 						<div class="container">
 							<h2 class="animate__animated animate__fadeInDown">
@@ -97,37 +87,36 @@
 							</h2>
 							<p class="animate__animated animate__fadeInUp">Work Harder,
 								Get Stronger. 저희와 함께라면 할 수 있습니다.</p>
-							<a th:href="@{/members/join}" href="/members/join" class="btn-get-started animate__animated animate__fadeInUp scrollto">회원가입</a>
+							<a href="/join" th:href="@{/join}" sec:authorize="isAnonymous()"
+								class="btn-get-started animate__animated animate__fadeInUp scrollto">회원가입</a>
 
 						</div>
 					</div>
 				</div>
 
 				<!-- Slide 2 -->
-				<div class="carousel-item"
-					style="background-image: url(assets/img/slide/slide-2.jpg)">
+				<div class="carousel-item" style="background-image: url(assets/img/slide/slide-2.jpg)">
 					<div class="carousel-container">
 						<div class="container">
 							<h2 class="animate__animated animate__fadeInDown">운동 영상을
 								업로드하고 소통하세요</h2>
 							<p class="animate__animated animate__fadeInUp">게시판에서 커뮤니티를
 								활동을 즐겨보세요. 운동에 대한 모든 의견을 사람들과 소통할 수 있습니다.</p>
-							<a href="/members/join" th:href="@{/members/join}"
+							<a href="/join" th:href="@{/join}" sec:authorize="isAnonymous()"
 								class="btn-get-started animate__animated animate__fadeInUp scrollto">회원가입</a>
 						</div>
 					</div>
 				</div>
 
 				<!-- Slide 3 -->
-				<div class="carousel-item"
-					style="background-image: url(assets/img/slide/slide-3.jpg)">
+				<div class="carousel-item" style="background-image: url(assets/img/slide/slide-3.jpg)">
 					<div class="carousel-container">
 						<div class="container">
 							<h2 class="animate__animated animate__fadeInDown">전문 트레이너의
 								PT수업과 피드백</h2>
 							<p class="animate__animated animate__fadeInUp">지난 수업을 까먹곤 하지
 								않았나요? 트레이너의 수업요약일지를 통해 복습해보세요. 댓글을 남겨 피드백을 받을 수도 있습니다.</p>
-							<a href="/members/join" th:href="@{/members/join}"
+							<a href="/join" th:href="@{/join}" sec:authorize="isAnonymous()"
 								class="btn-get-started animate__animated animate__fadeInUp scrollto">회원가입</a>
 						</div>
 					</div>
@@ -135,25 +124,21 @@
 
 			</div>
 
-			<a class="carousel-control-prev" href="#heroCarousel" role="button"
-				data-bs-slide="prev"> <span
-				class="carousel-control-prev-icon bi bi-chevron-left"
-				aria-hidden="true"></span>
-			</a> <a class="carousel-control-next" href="#heroCarousel" role="button"
-				data-bs-slide="next"> <span
-				class="carousel-control-next-icon bi bi-chevron-right"
-				aria-hidden="true"></span>
+			<a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+			</a> <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+				<span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
 			</a>
 
 		</div>
 	</section>
-	<!-- End Hero -->
+	<!-- ======= End Hero Section ======= -->
 
 	<main id="main">
 
 		<!-- ======= Featured Services Section ======= -->
 		<section id="featured-services" class="featured-services section-bg">
-			<div class="container">
+			<div class="container" sec:authorize="isAuthenticated()">
 
 				<div class="row no-gutters">
 					<div class="col-lg-4 col-md-6">
@@ -197,10 +182,11 @@
 							<h4 class="title">
 								<a href="/dietCalendarView">식단 올리기</a>
 							</h4>
-							<p class="description">식단을 달력에 기록하여 편하게 확인하세요.</p>
+							<p class="description">매달 식단과 수분섭취량, 인바디를 달력에 기록해보세요.</p>
 						</div>
 					</div>
 				</div>
+
 			</div>
 		</section>
 		<!-- End Featured Services Section -->
@@ -218,14 +204,12 @@
 
 					<div class="col-lg-4 col-md-6 ourGym-item filter-app">
 						<div class="ourGym-wrap">
-							<img src="assets/img/ourGym/ourGym-1.jpg" class="img-fluid"
-								alt="">
+							<img src="assets/img/ourGym/ourGym-1.jpg" class="img-fluid" alt="">
 							<div class="ourGym-info">
 								<h4>2022.07.02</h4>
 								<div class="ourGym-links">
-									<a href="assets/img/ourGym/ourGym-1.jpg"
-										data-gallery="ourGymGallery" class="ourGym-lightbox"
-										title="App 1"><i class="bx bx-plus"></i></a>
+									<a href="assets/img/ourGym/ourGym-1.jpg" data-gallery="ourGymGallery"
+										class="ourGym-lightbox" title="App 1"><i class="bx bx-plus"></i></a>
 								</div>
 							</div>
 						</div>
@@ -233,14 +217,12 @@
 
 					<div class="col-lg-4 col-md-6 ourGym-item filter-web">
 						<div class="ourGym-wrap">
-							<img src="assets/img/ourGym/ourGym-2.jpg" class="img-fluid"
-								alt="">
+							<img src="assets/img/ourGym/ourGym-2.jpg" class="img-fluid" alt="">
 							<div class="ourGym-info">
 								<h4>2021.03.18</h4>
 								<div class="ourGym-links">
-									<a href="assets/img/ourGym/ourGym-2.jpg"
-										data-gallery="ourGymGallery" class="ourGym-lightbox"
-										title="Web 3"><i class="bx bx-plus"></i></a>
+									<a href="assets/img/ourGym/ourGym-2.jpg" data-gallery="ourGymGallery"
+										class="ourGym-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
 								</div>
 							</div>
 						</div>
@@ -248,14 +230,12 @@
 
 					<div class="col-lg-4 col-md-6 ourGym-item filter-app">
 						<div class="ourGym-wrap">
-							<img src="assets/img/ourGym/ourGym-3.jpg" class="img-fluid"
-								alt="">
+							<img src="assets/img/ourGym/ourGym-3.jpg" class="img-fluid" alt="">
 							<div class="ourGym-info">
 								<h4>2018.09.11</h4>
 								<div class="ourGym-links">
-									<a href="assets/img/ourGym/ourGym-3.jpg"
-										data-gallery="ourGymGallery" class="ourGym-lightbox"
-										title="App 2"><i class="bx bx-plus"></i></a>
+									<a href="assets/img/ourGym/ourGym-3.jpg" data-gallery="ourGymGallery"
+										class="ourGym-lightbox" title="App 2"><i class="bx bx-plus"></i></a>
 								</div>
 							</div>
 						</div>
@@ -263,14 +243,12 @@
 
 					<div class="col-lg-4 col-md-6 ourGym-item filter-card">
 						<div class="ourGym-wrap">
-							<img src="assets/img/ourGym/ourGym-4.jpg" class="img-fluid"
-								alt="">
+							<img src="assets/img/ourGym/ourGym-4.jpg" class="img-fluid" alt="">
 							<div class="ourGym-info">
 								<h4>2020.01.01</h4>
 								<div class="ourGym-links">
-									<a href="assets/img/ourGym/ourGym-4.jpg"
-										data-gallery="ourGymGallery" class="ourGym-lightbox"
-										title="Card 2"><i class="bx bx-plus"></i></a>
+									<a href="assets/img/ourGym/ourGym-4.jpg" data-gallery="ourGymGallery"
+										class="ourGym-lightbox" title="Card 2"><i class="bx bx-plus"></i></a>
 								</div>
 							</div>
 						</div>
@@ -278,14 +256,12 @@
 
 					<div class="col-lg-4 col-md-6 ourGym-item filter-web">
 						<div class="ourGym-wrap">
-							<img src="assets/img/ourGym/ourGym-5.jpg" class="img-fluid"
-								alt="">
+							<img src="assets/img/ourGym/ourGym-5.jpg" class="img-fluid" alt="">
 							<div class="ourGym-info">
 								<h4>2011.12.01</h4>
 								<div class="ourGym-links">
-									<a href="assets/img/ourGym/ourGym-5.jpg"
-										data-gallery="ourGymGallery" class="ourGym-lightbox"
-										title="Web 2"><i class="bx bx-plus"></i></a>
+									<a href="assets/img/ourGym/ourGym-5.jpg" data-gallery="ourGymGallery"
+										class="ourGym-lightbox" title="Web 2"><i class="bx bx-plus"></i></a>
 								</div>
 							</div>
 						</div>
@@ -293,14 +269,12 @@
 
 					<div class="col-lg-4 col-md-6 ourGym-item filter-app">
 						<div class="ourGym-wrap">
-							<img src="assets/img/ourGym/ourGym-6.jpg" class="img-fluid"
-								alt="">
+							<img src="assets/img/ourGym/ourGym-6.jpg" class="img-fluid" alt="">
 							<div class="ourGym-info">
 								<h4>2016.12.30</h4>
 								<div class="ourGym-links">
-									<a href="assets/img/ourGym/ourGym-6.jpg"
-										data-gallery="ourGymGallery" class="ourGym-lightbox"
-										title="App 3"><i class="bx bx-plus"></i></a>
+									<a href="assets/img/ourGym/ourGym-6.jpg" data-gallery="ourGymGallery"
+										class="ourGym-lightbox" title="App 3"><i class="bx bx-plus"></i></a>
 								</div>
 							</div>
 						</div>
@@ -308,14 +282,12 @@
 
 					<div class="col-lg-4 col-md-6 ourGym-item filter-card">
 						<div class="ourGym-wrap">
-							<img src="assets/img/ourGym/ourGym-7.jpg" class="img-fluid"
-								alt="">
+							<img src="assets/img/ourGym/ourGym-7.jpg" class="img-fluid" alt="">
 							<div class="ourGym-info">
 								<h4>2022.02.25</h4>
 								<div class="ourGym-links">
-									<a href="assets/img/ourGym/ourGym-7.jpg"
-										data-gallery="ourGymGallery" class="ourGym-lightbox"
-										title="Card 1"><i class="bx bx-plus"></i></a>
+									<a href="assets/img/ourGym/ourGym-7.jpg" data-gallery="ourGymGallery"
+										class="ourGym-lightbox" title="Card 1"><i class="bx bx-plus"></i></a>
 								</div>
 							</div>
 						</div>
@@ -323,14 +295,12 @@
 
 					<div class="col-lg-4 col-md-6 ourGym-item filter-card">
 						<div class="ourGym-wrap">
-							<img src="assets/img/ourGym/ourGym-8.jpg" class="img-fluid"
-								alt="">
+							<img src="assets/img/ourGym/ourGym-8.jpg" class="img-fluid" alt="">
 							<div class="ourGym-info">
 								<h4>2020.02.02</h4>
 								<div class="ourGym-links">
-									<a href="assets/img/ourGym/ourGym-8.jpg"
-										data-gallery="ourGymGallery" class="ourGym-lightbox"
-										title="Card 3"><i class="bx bx-plus"></i></a>
+									<a href="assets/img/ourGym/ourGym-8.jpg" data-gallery="ourGymGallery"
+										class="ourGym-lightbox" title="Card 3"><i class="bx bx-plus"></i></a>
 								</div>
 							</div>
 						</div>
@@ -338,14 +308,12 @@
 
 					<div class="col-lg-4 col-md-6 ourGym-item filter-web">
 						<div class="ourGym-wrap">
-							<img src="assets/img/ourGym/ourGym-9.jpg" class="img-fluid"
-								alt="">
+							<img src="assets/img/ourGym/ourGym-9.jpg" class="img-fluid" alt="">
 							<div class="ourGym-info">
 								<h4>2019.05.05</h4>
 								<div class="ourGym-links">
-									<a href="assets/img/ourGym/ourGym-9.jpg"
-										data-gallery="ourGymGallery" class="ourGym-lightbox"
-										title="Web 3"><i class="bx bx-plus"></i></a>
+									<a href="assets/img/ourGym/ourGym-9.jpg" data-gallery="ourGymGallery"
+										class="ourGym-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
 								</div>
 							</div>
 						</div>
@@ -377,7 +345,7 @@
 							</p>
 							<div class="social">
 								<a href=""><i class="bi bi-facebook"></i></a> <a href=""><i
-									class="bi bi-instagram"></i></a>
+										class="bi bi-instagram"></i></a>
 							</div>
 						</div>
 					</div>
@@ -390,7 +358,7 @@
 							<p>"남과 비교하지 말고, 발전하기 전의 나와 비교할 것."</p>
 							<div class="social">
 								<a href=""><i class="bi bi-instagram"></i></a> <a href=""><i
-									class="bi bi-youtube"></i></a>
+										class="bi bi-youtube"></i></a>
 							</div>
 						</div>
 					</div>
@@ -404,7 +372,7 @@
 							</p>
 							<div class="social">
 								<a href=""><i class="bi bi-twitter"></i></a> <a href=""><i
-									class="bi bi-instagram"></i></a>
+										class="bi bi-instagram"></i></a>
 							</div>
 						</div>
 					</div>
@@ -454,21 +422,20 @@
 					</div>
 
 					<div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-						<form action="forms/contact.php" method="post" role="form"
-							class="php-email-form">
+						<form action="forms/contact.php" method="post" role="form" class="php-email-form">
 							<div class="row">
 								<div class="form-group col-md-6">
-									<label for="name">이름</label> <input type="text" name="name"
-										class="form-control" id="name" required>
+									<label for="name">이름</label> <input type="text" name="name" class="form-control"
+										id="name" required>
 								</div>
 								<div class="form-group col-md-6 mt-3 mt-md-0">
-									<label for="name">이메일</label> <input type="email"
-										class="form-control" name="email" id="email" required>
+									<label for="name">이메일</label> <input type="email" class="form-control" name="email"
+										id="email" required>
 								</div>
 							</div>
 							<div class="form-group mt-3">
-								<label for="name">제목</label> <input type="text"
-									class="form-control" name="subject" id="subject" required>
+								<label for="name">제목</label> <input type="text" class="form-control" name="subject"
+									id="subject" required>
 							</div>
 							<div class="form-group mt-3">
 								<label for="name">메세지</label>
@@ -517,9 +484,8 @@
 	</footer>
 	<!-- End Footer -->
 
-	<a href="#"
-		class="back-to-top d-flex align-items-center justify-content-center"><i
-		class="bi bi-arrow-up-short"></i></a>
+	<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+			class="bi bi-arrow-up-short"></i></a>
 
 	<!-- Vendor JS Files -->
 	<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

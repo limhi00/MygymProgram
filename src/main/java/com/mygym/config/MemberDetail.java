@@ -10,11 +10,24 @@ import com.mygym.domain.Member;
 import com.mygym.domain.Role;
 
 public class MemberDetail implements UserDetails {
+	
 	private Member member;
 	
 	public MemberDetail(Member member) {
 		this.member = member;
 	}
+	
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Collection<GrantedAuthority> collection = new ArrayList<>();
+        collection.add(new GrantedAuthority() {
+            @Override
+            public String getAuthority() {
+                return ""+member.getRole();
+            }
+        });
+        return collection;
+    }
 	
 	@Override
 	public String getUsername() {
@@ -38,7 +51,6 @@ public class MemberDetail implements UserDetails {
 		return member.getRole();
 	}
 
-
 	@Override
 	public boolean isAccountNonExpired() {
 		return true;
@@ -59,19 +71,4 @@ public class MemberDetail implements UserDetails {
 		return true;
 	}
 	
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		Collection<GrantedAuthority> collection = new ArrayList<>();
-		collection.add(new GrantedAuthority() {
-			
-			@Override
-			public String getAuthority() {
-				//return "ROLE_"+member.getRole();
-				return ""+member.getRole();
-			}
-		});
-
-		return collection;
-	}
-
 }

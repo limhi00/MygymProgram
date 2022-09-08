@@ -63,6 +63,11 @@ public class ReservationServiceImpl implements ReservationService{
 		return rseq;
 	}
 
+	public void deleteClassDiary(Long cdseq) {
+		
+		cdRepo.deleteById(cdseq);
+	}
+	
 	@Override
 	public void deleteReservation(Reservation res) {
 		

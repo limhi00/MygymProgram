@@ -1,41 +1,47 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" 
-		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-		layout:decorate="layout/_layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/_layout}">
+
 <head>
-<meta charset="UTF-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>회원가입</title>
-<!-- 작성하는 페이지가 CSS가 별도로 필요하면 추가한다. -->
+	<title>회원가입</title>
+	<!-- 작성하는 페이지가 CSS가 별도로 필요하면 추가한다. -->
 
-<style>
-container {
-	width: 300px;
-	height: 300px;
-}
+	<style>
+		html {
+			margin: 0;
+			padding: 0;
+			width: 100%;
+		}
 
-section {
-	margin-bottom: 20px;
-}
+		container {
+			width: 300px;
+			height: 300px;
+		}
 
-.div {
-	display: inline-block;
-	width: 300px;
-	height: 300px;
-}
+		section {
+			margin-bottom: 20px;
+		}
 
-.field-error {
-	border-color: #dc3545;
-	color: #dc3545;
-}
+		.div {
+			display: inline-block;
+			width: 300px;
+			height: 300px;
+		}
 
-#alert {
-	margin-top: 5px;
-}
+		.field-error {
+			border-color: #dc3545;
+			color: #dc3545;
+		}
 
-</style>
+		#alert {
+			margin-top: 5px;
+		}
+	</style>
 </head>
+
 <body>
 	<div layout:fragment="content">
 		<!-- Breadcrumbs -->
@@ -54,56 +60,60 @@ section {
 
 		<div class="container">
 			<!-- 내용 -->
-			<form th:action="@{join}" th:object="${memberCreateForm}" method="post">
+			<form th:action="@{/join}" th:object="${memberJoinDTO}" method="post">
 
- 				<div class="col-md-6 mx-5">
-					<label for="name" class="form-label">이름</label> 
-					<input type="text" th:field="*{name}" class="form-control">
+				<div class="mb-3">
+					<label for="name" class="form-label">이름</label>
+					<input type="text" th:field="*{name}" class="form-control"
+						th:classappend="${#fields.hasErrors('name')} ? 'is-invalid'" id="name" autofocus>
 					<div class="alert alert-danger" th:errors="*{name}" id="alert"></div>
-					<div class="field-error" th:errors="*{name}"></div>
 				</div>
-<!-- <label for="name" class="form-label">이름</label>
-<input type="text" th:field="*{name}" class="form-control" th:classappend="${#fields.hasErrors('name')} ? 'is-invalid'" id="name">
-<div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
-제목 에러메시지
-</div> -->
 
-				<div class="col-md-6 mx-5">
-					<label for="username" class="form-label">아이디</label> 
-					<input type="text" th:field="*{username}" class="form-control">
+				<div class="mb-3">
+					<label for="username" class="form-label">아이디</label>
+					<input type="text" th:field="*{username}" class="form-control"
+						th:classappend="${#fields.hasErrors('username')} ? 'is-invalid'" id="username">
 					<div class="alert alert-danger" th:errors="*{username}" id="alert"></div>
 				</div>
 
-				<div class="col-md-6 mx-5">
-					<label for="password1" class="form-label">비밀번호</label> 
-					<input type="password" th:field="*{password1}" class="form-control">
+				<div class="mb-3">
+					<label for="password1" class="form-label">비밀번호</label>
+					<input type="password" th:field="*{password1}" class="form-control"
+						th:classappend="${#fields.hasErrors('password1')} ? 'is-invalid'" id="password1">
 					<div class="alert alert-danger" th:errors="*{password1}" id="alert"></div>
 				</div>
 
-				<div class="col-md-6 mx-5">
+				<div class="mb-3">
 					<label for="password2" class="form-label">비밀번호 확인</label>
-					<input type="password" th:field="*{password2}" class="form-control">
+					<input type="password" th:field="*{password2}" class="form-control"
+						th:classappend="${#fields.hasErrors('password2')} ? 'is-invalid'" id="password2">
 					<div class="alert alert-danger" th:errors="*{password2}" id="alert"></div>
 				</div>
 
-				<div class="col-md-6 mx-5">
+				<div class="mb-3">
 					<label for="phone" class="form-label">전화번호</label>
-					<input type="text" th:field="*{phone}" class="form-control">
+					<input type="text" th:field="*{phone}" class="form-control"
+						th:classappend="${#fields.hasErrors('phone')} ? 'is-invalid'" id="phone">
 					<div class="alert alert-danger" th:errors="*{phone}" id="alert"></div>
 				</div>
 
-				<div class="col-md-6 mb-5 mx-5">
-					<label for="email" class="form-label">이메일</label> 
-					<input type="email" th:field="*{email}" class="form-control">
+				<div class="mb-3">
+					<label for="email" class="form-label">이메일</label>
+					<input type="email" th:field="*{email}" class="form-control"
+						th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'" id="email">
 					<div class="alert alert-danger" th:errors="*{email}" id="alert"></div>
 				</div>
-				
-<!-- 				 <div class="mb-3">
-					<label for="role" class="form-label">가입자 유형</label> 
-					<input type="radio" th:field="*{name}" class="form-control">
-					<div class="alert alert-danger" th:errors="*{name}" id="alert"></div>
-					<div class="field-error" th:errors="*{name}"></div>
-				</div> -->
+
+				<div class="mb-3">
+					<label for="role" class="form-label">가입 유형</label>
+					<div th:each="r : ${roles}" class="form-check form-check-inline">
+						<input type="radio" th:field="*{role}" th:value="${r.value}" class="form-check-input">
+
+						<label th:for="${#ids.prev('role')}" th:text="${r.key}" class="form-check-label"></label>
+					</div>
+					<div class="alert alert-danger" th:errors="*{role}" id="alert"></div>
+				</div>
+
 				<div class="bt_wrap">
 					<button type="submit" class="btItem">회원가입</button>
 					<button type="reset" class="btItem">다시쓰기</button>
@@ -112,4 +122,5 @@ section {
 		</div>
 	</div>
 </body>
+
 </html>

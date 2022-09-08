@@ -45,12 +45,13 @@
 					</span>
 				</li>
 				<li><a class="nav-link scrollto active" sec:authorize="isAuthenticated()"
-					th:href="@{'/members/mypage/'+ ${#authentication.principal.username}}">마이페이지</a>
+					th:href="@{'/mypage/'+ ${#authentication.principal.username}}">마이페이지</a>
 				</li>
-				<li><a class="getstarted scrollto" sec:authorize="isAnonymous()" href="/members/login"
-					th:href="@{/members/login}">로그인</a></li>
+
+				<li><a class="getstarted scrollto" sec:authorize="isAnonymous()" href="/login"
+					th:href="@{/login}">로그인</a></li>
 				<li><a class="getstarted scrollto" sec:authorize="isAuthenticated()" href="/logout"
-					th:href="@{logout}">로그아웃</a></li>
+					th:href="@{/logout}">로그아웃</a></li>
 			</ul>
 		</nav>
 		<!-- .navbar -->
@@ -68,7 +69,9 @@
 	        <li class="dropdown"><a href="/"><span>Home</span></a>
 	        <li class="dropdown"><a href="/allBoardList"><span>게시판</span></a>
 	        </li>
-	        <li class="dropdown"><a href="/classCalendarView"><span>수업예약</span></a></li>
+	        <li class="dropdown" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')">
+	        	<a href="/classCalendarView"><span>수업예약</span></a>
+	        </li>
 	        <li class="dropdown"><a href="/dietCalendarView"><span>식단 올리기</span></a></li>
 	        <li class="dropdown" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_TRAINER')">
 	        	<a href="/classScheduleView"><span>수업 시간표</span></a>

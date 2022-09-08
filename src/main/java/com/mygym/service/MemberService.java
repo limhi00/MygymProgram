@@ -4,20 +4,28 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.mygym.domain.Member;
+import com.mygym.domain.Role;
 
 public interface MemberService {
-
-//	List<Member> getMemberList();
 	
+	Member getMember(String username);
+	
+	void deleteMember(String username);
+	
+	Member joinMember(String username, String name, String email, String password, String phone, Role role);
+	
+	void modifyMemberInfo(Member member);
+	
+	// 회원 아이디 조회
+	Member getUsername(Member member, String username);
+	
+	/* 아이디, 비밀번호 찾기*/
+	Member doFindId(String name, String email);
+	Member doFindPwd(String username, String email);
+
 	Page<Member> getRoleList(String role, Pageable pageable);
 	
 	Page<Member> getSearchNameMemberList(String role, String searchKeyword, Pageable pageable);
 	
 	Page<Member> getSearchPhoneMemberList(String role, String searchKeyword, Pageable pageable);
-	
-	Member createForm(String name, String username, String email, String password, String phone);
-	Member getMember(String username); // 아이디를 조건으로 회원 검색
-	void modifyMemberInfo(Member member); // 회원 수정
-	void deleteMember(String username); // 회원 탈퇴	
-
 }

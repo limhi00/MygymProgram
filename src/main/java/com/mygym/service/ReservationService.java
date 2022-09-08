@@ -19,6 +19,8 @@ public interface ReservationService {
 	
 	String getCTrainerName(String cTrainer);
 	
+	void deleteClassDiary(Long cdseq);
+	
 	void deleteReservation(Reservation res);
 	
 	ClassDiary getClassDiary(Long rseq);

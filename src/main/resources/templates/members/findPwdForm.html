@@ -9,6 +9,23 @@
 	<title>비밀번호 찾기</title>
 	<!-- 작성하는 페이지가 CSS가 별도로 필요하면 추가한다. -->
 
+
+	<script th:inline="javascript">
+		function findMemberPwd() {
+			if (document.getElementById("username").value == "") {
+				alert("아이디를 입력해 주세요.");
+				return false;
+			} else if (document.getElementById("email").value == "") {
+				alert("이메일을 입력해 주세요.");
+				return false;
+			} else {
+				document.getElementById("findPwd").action = "/findPwd";
+				document.getElementById("findPwd").submit();
+			}
+		}
+	</script>
+
+
 	<style>
 		html {
 			margin: 0;
@@ -29,6 +46,15 @@
 			display: inline-block;
 			width: 300px;
 			height: 300px;
+		}
+
+		.field-error {
+			border-color: #dc3545;
+			color: #dc3545;
+		}
+
+		#alert {
+			margin-top: 5px;
 		}
 
 		#footer {
@@ -58,13 +84,26 @@
 		<!-- End Breadcrumbs -->
 
 		<div class="container">
-			<!-- 비밀번호 찾기 결과 내용 -->
+			<!-- 내용 -->
+			<form th:action="@{/findPwd}" method="post">
 
-			<h1 th:text="${msg}"></h1>
+				<div class="mb-3">
+					<label for="username" class="form-label">아이디</label>
+					<input type="text" name="username" id="username" class="form-control" autofocus>
+				</div>
+
+				<div class="mb-3">
+					<label for="email" class="form-label">이메일</label>
+					<input type="email" name="email" id="email" class="form-control" autofocus>
+				</div>
+
+				<div th:text="${msg}" th:style="${'color: red'}"></div>
 
 				<div class="bt_wrap">
+					<button type="submit" class="btItem" th:onclick="findMemberPwd()" id="findPwd">확인</button>
 					<a href="/login" class="btItem">로그인</a>
-			</div>
+				</div>
+			</form>
 		</div>
 	</div>
 </body>

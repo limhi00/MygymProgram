@@ -25,11 +25,10 @@ import lombok.ToString;
 @ToString(exclude="resList")
 @Entity
 public class Member {
-	
-	//@JoinColumn(name = "MEMBER_ID")
+
 	@Id
-	@Column(name = "MEMBER_ID", length = 15)
-	private String username;
+	@Column(name = "MEMBER_ID",length = 15)
+	private String username; // 회원가입, 로그인에 사용될 ID
 	
 	@Column(nullable = false, length = 30)
 	private String name;	
@@ -60,5 +59,4 @@ public class Member {
 	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
 	@JsonBackReference
 	private List<DietDiary> dietDiaryList = new ArrayList<DietDiary>();
-
 }

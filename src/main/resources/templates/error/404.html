@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/_layout}">
+<head>
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>404-Not Found</title>
+<!-- 작성하는 페이지가 CSS가 별도로 필요하면 추가한다. -->
+<link href="assets/css/style_board.css" rel="stylesheet">
+
+<style>
+#footer {
+	height: 210px;
+	position: absolute;
+	width: 100%;
+	bottom: 0px;
+	left: 0;
+}
+</style>
+</head>
+<body>
+
+	<div layout:fragment="content">
+
+		<!-- ======= Breadcrumbs ======= -->
+		<section class="breadcrumbs">
+			<div class="container">
+				<div class="d-flex justify-content-between align-items-center">
+					<h2>404-페이지를 찾을 수 없습니다.</h2>
+					<ol>
+						<li><a href="/">홈</a></li>
+						<li></li>
+					</ol>
+				</div>
+			</div>
+		</section>
+		<!-- End Breadcrumbs -->
+
+		<section class="myContent">
+			<div class="container">
+
+				<!-- 내용 작성. -->
+				<div align="center">
+					<h1>404-Not Found</h1><br>
+					<h2>잘못된 주소입니다. 요청하신 페이지로 연결할 수 없습니다.</h2>
+				</div>
+			</div>
+		</section>
+	</div>
+</body>
+</html>

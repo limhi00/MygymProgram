@@ -23,6 +23,7 @@
 </head>
 <body>
 	<div layout:fragment="content">
+
 		<section class="myContent">
 			<div class="container">
 				<!-- 내용 -->
@@ -31,14 +32,18 @@
 					<h1>로그인</h1>
 					
  						<div th:if="${param.error}">
-							<div th:align="center" class="alert alert-danger">회원ID 또는 비밀번호를 확인해 주세요.</div>
+							<div th:align="center" class="alert alert-danger">
+							회원ID 또는 비밀번호를 확인해 주세요.
+							</div>
 						</div>
 						
 						 <div th:if="${param.logout}">
-							<div th:align="center" class="alert alert-danger">로그아웃 되었습니다.</div>
+							<div th:align="center" class="alert alert-danger">
+							로그아웃 되었습니다.
+							</div>
 						</div>
 					
-					<form th:action="@{/members/login}" method="post">
+					<form th:action="@{/login}" method="post">
 
 
 						<div class="txt_field">
@@ -50,22 +55,23 @@
 						</div>
 
 						<div class="Id">
-							<a href="/members/findId">아이디 찾기</a>
+							<a href="/findIdForm">아이디 찾기</a>
 						</div>
 
 						<div class="pass">
-							<a href="javascript:popup2()">비밀번호 찾기</a>
+							<a href="/findPwdForm">비밀번호 찾기</a>
 						</div>
 
 						<input type="submit" value="로그인">
 
 						<div class="signup_link">
-							<a th:href="@{/members/join}">회원가입</a>
+							<a th:href="@{/join}">회원가입</a>
 						</div>
 					</form>
 				</div>
 			</div>
 		</section>
 	</div>
+
 </body>
 </html>
